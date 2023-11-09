@@ -4,6 +4,8 @@ if ($api == 'equipamentos') {
 
         if ($acao == 'index' && $parametro == '') {
 
+            echo "index equipamentos";
+            exit;
 
             $db = DB::connect();
             $sql = $db->prepare("SELECT equipamentos.tag, equipamentos.categoria, equipamentos.disponivel FROM equipamentos");

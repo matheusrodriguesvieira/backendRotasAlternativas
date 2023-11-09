@@ -3,23 +3,8 @@
 // Roteamento manual
 $uri = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
 
-echo $uri;
-exit;
 
-if (isset($_GET['path'])) {
-    $path = explode('/', $_GET['path']);
-} else {
-
-    $response = array(
-        "message" => "Nenhum equipamento encontrado!"
-    );
-
-    echo json_encode($response);
-    exit;
-
-    echo 'caminho não existe';
-    exit;
-}
+$path = explode('/', $uri);
 
 $api = $path[0];
 
