@@ -5,6 +5,7 @@ $uri = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_U
 
 switch ($uri) {
     case '/':
+        break;
     case '/home':
         require_once 'controllers/HomeController.php';
         $controller = new HomeController();
@@ -21,3 +22,4 @@ switch ($uri) {
         echo '404 Not Foung';
         break;
 }
+exit;
