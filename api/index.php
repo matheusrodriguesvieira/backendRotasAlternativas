@@ -8,6 +8,9 @@ $uri = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_U
 
 $path = explode('/', $uri);
 
+var_dump($path);
+exit;
+
 $api = $path[0];
 
 if (isset($path[1])) {
