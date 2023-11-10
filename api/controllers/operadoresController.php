@@ -6,11 +6,6 @@ if ($api == 'operadores') {
             // ---------------------------------------
             // PEGA TODOS OS OPERADORES
             // ---------------------------------------
-            $response = array(
-                "message" => "operadores controllers"
-            );
-            echo json_encode($response);
-            exit;
 
             $json = file_get_contents("php://input");
             $dados = json_decode($json, true);
