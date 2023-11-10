@@ -3,10 +3,16 @@ header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Content-Type");
 
 // Roteamento manual
-$uri = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
+// $uri = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
 
 
-$path = explode('/', $uri);
+if (isset($_GET['path'])) {
+    $path = explode('/', $_GET['path']);
+} else {
+
+    echo 'caminho não existe';
+    exit;
+}
 
 var_dump($path);
 exit;
