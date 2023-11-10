@@ -1,4 +1,6 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Content-Type");
 
 // Roteamento manual
 $uri = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
@@ -24,7 +26,7 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 
 
 
-include_once './database/DB.php';
-include_once './controllers/listaEscalas.php';
-include_once './controllers/operadoresController.php';
-include_once './controllers/equipamentosCotroller.php';
+include_once(__DIR__ . './database/DB.php');
+include_once(__DIR__ . './controllers/listaEscalas.php');
+include_once(__DIR__ . './controllers/operadoresController.php');
+include_once(__DIR__ . './controllers/equipamentosCotroller.php');

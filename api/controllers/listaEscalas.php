@@ -3,9 +3,6 @@ if ($api == 'listaEscalas') {
     if ($metodo == 'GET') {
         if ($acao == 'index' && $parametro == '') {
 
-            echo "index listaEscalas";
-            exit;
-
             // 1 - PEGAR TODAS AS LISTAS DE ESCALAS E ADICIONAR AS PROPRIEDADES escala, operadoresForaEscala e equipamentosForaEscala como arrays vazios;
             // 2 - FAZER UM LAÇO DE REPETIÇÃO E A CADA LISTA, PEGAR TODOS AS ESCALAS CORRESPONDENTES E ADICIONAR AO ARRAU
 
