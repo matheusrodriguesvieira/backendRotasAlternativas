@@ -1,6 +1,6 @@
 <?php
 if ($api == 'listaEscalas') {
-    if ($metodo == 'POST') {
+    if ($metodo == 'GET') {
         if ($acao == 'index' && $parametro == '') {
 
             // 1 - PEGAR TODAS AS LISTAS DE ESCALAS E ADICIONAR AS PROPRIEDADES escala, operadoresForaEscala e equipamentosForaEscala como arrays vazios;
@@ -10,14 +10,23 @@ if ($api == 'listaEscalas') {
             // {
             //     "turma":TURMA
             // }
-            $json = file_get_contents("php://input");
-            $dados = json_decode($json, true);
+            // $json = file_get_contents("php://input");
+            // $dados = json_decode($json, true);
 
-            if (!$dados) {
-                exit;
-            }
 
-            if (!array_key_exists('turma', $dados)) {
+            // if (!$dados) {
+            //     exit;
+            // }
+
+            // if (!array_key_exists('turma', $dados)) {
+            //     $response = array(
+            //         "message" => 'Parâmetro \'turma\' não encontrado.'
+            //     );
+            //     echo json_encode($response);
+            //     exit;
+            // }
+
+            if (!$_GET['turma']) {
                 $response = array(
                     "message" => 'Parâmetro \'turma\' não encontrado.'
                 );
@@ -25,9 +34,11 @@ if ($api == 'listaEscalas') {
                 exit;
             }
 
+            $turma = $_GET['turma'];
+
             $db = DB::connect();
             $sql = $db->prepare("SELECT * FROM listaescalas WHERE listaescalas.turma = ?");
-            $sql->execute([$dados['turma']]);
+            $sql->execute([$turma]);
             $obj = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 

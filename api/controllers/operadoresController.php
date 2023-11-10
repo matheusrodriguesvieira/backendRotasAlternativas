@@ -7,10 +7,26 @@ if ($api == 'operadores') {
             // PEGA TODOS OS OPERADORES
             // ---------------------------------------
 
-            $json = file_get_contents("php://input");
-            $dados = json_decode($json, true);
+            // $json = file_get_contents("php://input");
+            // $dados = json_decode($json, true);
 
-            if (!$dados) {
+            // if (!$dados) {
+            //     $response = array(
+            //         "message" => 'Parâmetro \'turma\' não encontrado.'
+            //     );
+            //     echo json_encode($response);
+            //     exit;
+            // }
+
+            // if (!array_key_exists('turma', $dados)) {
+            //     $response = array(
+            //         "message" => 'Parâmetro \'turma\' não encontrado.'
+            //     );
+            //     echo json_encode($response);
+            //     exit;
+            // }
+
+            if (!$_GET['turma']) {
                 $response = array(
                     "message" => 'Parâmetro \'turma\' não encontrado.'
                 );
@@ -18,18 +34,11 @@ if ($api == 'operadores') {
                 exit;
             }
 
-            if (!array_key_exists('turma', $dados)) {
-                $response = array(
-                    "message" => 'Parâmetro \'turma\' não encontrado.'
-                );
-                echo json_encode($response);
-                exit;
-            }
-
+            $turma = $_GET['turma'];
 
             $db = DB::connect();
             $sql = $db->prepare("SELECT * FROM operadores WHERE operadores.turma = ?");
-            $sql->execute([$dados['turma']]);
+            $sql->execute([$turma]);
             $obj = $sql->fetchAll(PDO::FETCH_ASSOC);
 
             if (!$obj) {
