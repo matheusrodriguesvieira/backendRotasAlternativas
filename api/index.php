@@ -24,6 +24,15 @@ if (isset($path[2])) {
 
 $metodo = $_SERVER['REQUEST_METHOD'];
 
+$response = array(
+    "path 0" => "{$path[0]}",
+    "path 1" => "{$path[1]}",
+    "path 2" => "{$path[2]}",
+    "method" => "{$metodo}"
+);
+echo json_encode($response);
+exit;
+
 
 
 require_once(realpath(dirname(__FILE__) . '/database/DB.php'));
