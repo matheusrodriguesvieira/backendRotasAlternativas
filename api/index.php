@@ -9,13 +9,10 @@ header("Access-Control-Allow-Headers: Content-Type");
 if (isset($_GET['path'])) {
     $path = explode('/', $_GET['path']);
 } else {
-
     echo 'caminho não existe';
     exit;
 }
 
-var_dump($path);
-exit;
 
 $api = $path[0];
 
