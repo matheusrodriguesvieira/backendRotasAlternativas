@@ -4,12 +4,6 @@ if ($api == 'equipamentos') {
 
         if ($acao == 'index' && $parametro == '') {
 
-            $response = array(
-                "message" => "equipamentos controllers"
-            );
-            echo json_encode($response);
-            exit;
-
             $db = DB::connect();
             $sql = $db->prepare("SELECT equipamentos.tag, equipamentos.categoria, equipamentos.disponivel FROM equipamentos");
             $sql->execute();
@@ -28,11 +22,6 @@ if ($api == 'equipamentos') {
         }
 
         if ($acao == 'show' && $parametro != '') {
-            $response = array(
-                "message" => "equipamentos controllers show {$parametro}"
-            );
-            echo json_encode($response);
-            exit;
             $db = DB::connect();
             $sql = $db->prepare("SELECT equipamentos.tag, equipamentos.categoria, equipamentos.disponivel FROM equipamentos WHERE equipamentos.tag = '{$parametro}'");
             $sql->execute();
