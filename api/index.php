@@ -20,9 +20,6 @@ if (isset($path[2])) {
     $parametro = '';
 }
 
-var_dump($path);
-exit;
-
 $metodo = $_SERVER['REQUEST_METHOD'];
 
 
