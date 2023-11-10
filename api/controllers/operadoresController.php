@@ -65,6 +65,7 @@ if ($api == 'operadores') {
                     "message" => "Nenhum operador encontrado!"
                 );
                 echo json_encode($response);
+                exit;
             }
 
             echo json_encode($obj);
