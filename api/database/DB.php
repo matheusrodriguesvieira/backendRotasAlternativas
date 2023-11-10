@@ -3,10 +3,10 @@ class DB
 {
     public static function connect()
     {
-        $host = 'sql204.infinityfree.com';
-        $user = 'if0_35366081';
-        $base = 'if0_35366081_escala';
-        $password = 'spOPu4NV5h';
+        $host = 'ep-cool-darkness-123456.us-east-2.aws.neon.tech';
+        $user = 'matheusrodriguespgm';
+        $base = 'escala';
+        $password = 'Vb8yEXQAOvf9';
 
         return new PDO("mysql:host={$host};dbname={$base};charset=UTF8;", $user, $password);
     }
