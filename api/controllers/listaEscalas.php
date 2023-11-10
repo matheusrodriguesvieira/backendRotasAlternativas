@@ -1,6 +1,6 @@
 <?php
 if ($api == 'listaEscalas') {
-    if ($metodo == 'GET') {
+    if ($metodo == 'POST') {
         if ($acao == 'index' && $parametro == '') {
 
             // 1 - PEGAR TODAS AS LISTAS DE ESCALAS E ADICIONAR AS PROPRIEDADES escala, operadoresForaEscala e equipamentosForaEscala como arrays vazios;

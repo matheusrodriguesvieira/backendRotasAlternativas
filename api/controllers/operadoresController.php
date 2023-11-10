@@ -1,6 +1,6 @@
 <?php
 if ($api == 'operadores') {
-    if ($metodo == 'GET') {
+    if ($metodo == 'POST') {
         if ($acao == 'index' && $parametro == '') {
 
             // ---------------------------------------
