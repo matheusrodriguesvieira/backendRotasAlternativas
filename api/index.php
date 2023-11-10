@@ -25,6 +25,7 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 
 
 include_once './database/DB.php';
+
 include_once './controllers/listaEscalas.php';
 include_once './controllers/operadoresController.php';
 include_once './controllers/equipamentosCotroller.php';
