@@ -10,6 +10,6 @@ class DB
         $pass = 'Vb8yEXQAOvf9';
         $sslmode = 'require';
 
-        return new PDO("pgsql:host=$host;dbname=$base;user=$user;password=$pass;sslmode=$sslmode");
+        return new PDO("pgsql:host=$host;dbname=$base;user=$user;password=$pass;sslmode=$sslmode?options=endpoint%3Dep-fancy-haze-53308299");
     }
 }
