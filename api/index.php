@@ -26,7 +26,7 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 
 
 
-require_once(__DIR__ . './database/DB.php');
 require_once(__DIR__ . './controllers/listaEscalas.php');
+require_once(__DIR__ . './database/DB.php');
 require_once(__DIR__ . './controllers/operadoresController.php');
 require_once(__DIR__ . './controllers/equipamentosCotroller.php');
