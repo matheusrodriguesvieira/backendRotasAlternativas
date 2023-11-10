@@ -6,15 +6,16 @@ header("Access-Control-Allow-Headers: Content-Type");
 // $uri = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
 
 
-if (isset($_GET['path'])) {
-    $path = explode('/', $_GET['path']);
+$path = explode('/', $_GET['path']);
+
+if (isset($path[0])) {
+    $api = $path[0];
 } else {
     echo 'caminho não existe';
     exit;
 }
 
 
-$api = $path[0];
 
 if (isset($path[1])) {
     $acao = $path[1];
