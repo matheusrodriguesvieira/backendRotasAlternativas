@@ -31,14 +31,14 @@ if (isset($path[2])) {
 
 $metodo = $_SERVER['REQUEST_METHOD'];
 
-$response = array(
-    "api" => "{$api}",
-    "acao" => "{$acao}",
-    "parametro" => "{$parametro}",
-    "method" => "{$metodo}"
-);
-echo json_encode($response);
-exit;
+// $response = array(
+//     "api" => "{$api}",
+//     "acao" => "{$acao}",
+//     "parametro" => "{$parametro}",
+//     "method" => "{$metodo}"
+// );
+// echo json_encode($response);
+// exit;
 
 
 
