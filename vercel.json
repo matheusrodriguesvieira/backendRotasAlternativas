@@ -5,6 +5,6 @@
       }
     },
     "rewrites": [
-      { "source": "/api/(.*)",  "destination": "api/index.php?path=$1" }
+      { "source": "/:path*",  "destination": "api/index.php?path=:path*" }
     ]
   }
