@@ -48,7 +48,7 @@ if ($api == 'listaEscalas') {
                 $obj[$i]['operadoresForaEscala'] = [];
 
                 $sql = $db->prepare("SELECT operadores.matricula, operadores.nome, tag, operadorequipamento.localizacao, operadorequipamento.atividade, operadorequipamento.transporte FROM operadorequipamento, operadores where operadores.matricula = operadorequipamento.matricula and operadorequipamento.idlista = ?");
-                $sql->execute([$obj[$i]['idLista']]);
+                $sql->execute([$obj[$i]['idlista']]);
                 $escala = $sql->fetchAll(PDO::FETCH_ASSOC);
 
                 for ($j = 0; $j < count($escala); $j++) {
@@ -56,7 +56,7 @@ if ($api == 'listaEscalas') {
                 }
 
                 $sql = $db->prepare("SELECT operadores.matricula, operadores.nome FROM operadorforaescala, operadores where operadores.matricula = operadorforaescala.matricula and  operadorforaescala.idlista = ?");
-                $sql->execute([$obj[$i]['idLista']]);
+                $sql->execute([$obj[$i]['idlista']]);
                 $operadorForaEscala = $sql->fetchAll(PDO::FETCH_ASSOC);
 
                 for ($j = 0; $j < count($operadorForaEscala); $j++) {
