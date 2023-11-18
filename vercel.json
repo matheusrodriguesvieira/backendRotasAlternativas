@@ -9,7 +9,7 @@
     ],
     "headers": [
       {
-        "source": "/api/listaEscalas/store/",
+        "source": "/listaEscalas/store/",
         "headers": [
           { "key": "Access-Control-Allow-Credentials", "value": "true" },
           { "key": "Access-Control-Allow-Origin", "value": "*" },
