@@ -1,13 +1,15 @@
-  {
+{
     "functions": {
       "api/*.php": {
         "runtime": "vercel-php@0.6.0"
       }
     },
     "rewrites": [
-      { 
-        "source": "/:path*",  
-        "destination": "api/index.php?path=:path*",
+      { "source": "/:path*",  "destination": "api/index.php?path=:path*" }
+    ],
+    "headers": [
+      {
+        "source": "/api/listaEscalas/store",
         "headers": [
           { "key": "Access-Control-Allow-Credentials", "value": "true" },
           { "key": "Access-Control-Allow-Origin", "value": "*" },
@@ -17,4 +19,5 @@
       }
     ]
   }
+
   
