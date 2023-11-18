@@ -7,6 +7,13 @@ header("Access-Control-Allow-Headers: X-CSRF-Token, X-Requested-With, Accept, Ac
 // Roteamento manual
 // $uri = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
 
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    header('Content-Length: 0');
+    header('Content-Type: text/plain');
+    http_response_code(200);
+    die();
+}
+
 
 $path = explode('/', $_GET['path']);
 
