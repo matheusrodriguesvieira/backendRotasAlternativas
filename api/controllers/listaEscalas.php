@@ -489,7 +489,13 @@ if ($api == 'listaEscalas') {
 
                 // Confirma as alterações no banco de dados
                 $db->commit();
-                echo json_encode(["message" => "Dados inseridos com sucesso!"]);
+
+
+
+                echo json_encode([
+                    "message" => "Dados inseridos com sucesso!",
+                    "id" => $idLista,
+                ]);
             } catch (Exception $e) {
                 $db->rollBack();
                 // Em caso de erro, reverte as alterações
