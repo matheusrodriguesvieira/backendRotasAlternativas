@@ -1,18 +1,11 @@
 <?php
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, DELETE, POST, PUT, OPTIONS, PATCH");
+header("Access-Control-Allow-Methods: GET, DELETE, POST, PUT");
 header("Access-Control-Allow-Headers: X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
 
 // Roteamento manual
 // $uri = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    header('Content-Length: 0');
-    header('Content-Type: text/plain');
-    http_response_code(200);
-    die();
-}
 
 
 $path = explode('/', $_GET['path']);
