@@ -324,12 +324,8 @@ if ($api == 'listaEscalas') {
             $dataCriacao = date("Y-m-d");
             $horarioCriacao = date("H:i:s");
 
-            if (!array_key_exists('nomeLista', $dados)) {
-                echo json_encode([
-                    "message" => "erro ao criar lista de escala"
-                ]);
-                exit;
-            }
+            $nomeLista = "Escala da Turma " . $dados['turma'] . " - " . $dataCriacao;
+
             if (!array_key_exists('turma', $dados)) {
                 echo json_encode([
                     "message" => "erro ao criar lista de escala"
@@ -463,7 +459,7 @@ if ($api == 'listaEscalas') {
                 $comando = "INSERT INTO listaescalas (nomeLista, horarioCriacao, dataCriacao, turma) VALUES (?,?,?,?)";
                 $sql = $db->prepare($comando);
                 // USANDO PREPARED STATEMENTS
-                $sql->execute([$dados['nomeLista'], $horarioCriacao, $dataCriacao, $dados['turma']]);
+                $sql->execute([$nomeLista, $horarioCriacao, $dataCriacao, $dados['turma']]);
 
 
                 // PEGA O ULTIMO ID INSERIDO
