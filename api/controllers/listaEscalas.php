@@ -214,21 +214,6 @@ if ($api == 'listaEscalas') {
 
 
                         // ---------------------------------------
-                        // VERIFICANDO SE O OPERADOR já esta escalado
-                        // ---------------------------------------
-                        $sql = $db->prepare('SELECT * from operadorequipamento where operadorequipamento.matricula = ? and operadorequipamento.idlista = ? and operadorequipamento.matricula not between 1 and 5');
-                        $sql->execute([$dados['escala'][$i]['matricula'], $parametro]);
-                        $operador = $sql->fetch(PDO::FETCH_ASSOC);
-
-                        if ($operador) {
-                            echo json_encode([
-                                "message" => "Operador {$dados['escala'][$i]['matricula']} já está escalado.",
-                            ]);
-                            exit;
-                        }
-
-
-                        // ---------------------------------------
                         // VERIFICANDO SE O equipamento existe
                         // ---------------------------------------
                         $sql = $db->prepare('SELECT * from equipamentos where equipamentos.tag = ?');
@@ -252,6 +237,20 @@ if ($api == 'listaEscalas') {
                         if (!$operador[$categoria]) {
                             echo json_encode([
                                 "message" => "Operador {$operador['nome']} - {$operador['matricula']} não é autorizado a operar {$equipamento['tag']}",
+                            ]);
+                            exit;
+                        }
+
+                        // ---------------------------------------
+                        // VERIFICANDO SE O OPERADOR já esta escalado
+                        // ---------------------------------------
+                        $sql = $db->prepare('SELECT * from operadorequipamento where operadorequipamento.matricula = ? and operadorequipamento.idlista = ? and operadorequipamento.matricula not between 1 and 5');
+                        $sql->execute([$dados['escala'][$i]['matricula'], $parametro]);
+                        $operador = $sql->fetch(PDO::FETCH_ASSOC);
+
+                        if ($operador) {
+                            echo json_encode([
+                                "message" => "Operador {$dados['escala'][$i]['matricula']} já está escalado.",
                             ]);
                             exit;
                         }
