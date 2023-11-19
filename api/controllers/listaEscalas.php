@@ -151,6 +151,7 @@ if ($api == 'listaEscalas') {
 
                 if (!array_key_exists('escala', $dados)) {
                     $response = array(
+                        "error" => true,
                         "message" => 'Parâmetro \'escala\' não encontrado.'
                     );
                     echo json_encode($response);
@@ -160,6 +161,7 @@ if ($api == 'listaEscalas') {
                 foreach ($dados['escala'] as $escala) {
                     if (!array_key_exists('matricula', $escala) || !array_key_exists('tag', $escala) || !array_key_exists('localizacao', $escala) || !array_key_exists('atividade', $escala) || !array_key_exists('transporte', $escala)) {
                         echo json_encode([
+                            "error" => true,
                             "message" => "Parâmetros incompletos."
                         ]);
 
@@ -174,6 +176,7 @@ if ($api == 'listaEscalas') {
                     if ($dados['escala'][$i]['matricula'] > 5) {
                         if (count(array_values(array_filter($dados['escala'], fn ($element) => $element['matricula'] == $dados['escala'][$i]['matricula']))) > 1) {
                             echo json_encode([
+                                "error" => true,
                                 "message" => "Tentando inserir operador válido em múltiplos equipamentos"
                             ]);
                             exit;
@@ -184,6 +187,7 @@ if ($api == 'listaEscalas') {
                 for ($i = 0; $i < count($dados['escala']); $i++) {
                     if (count(array_values(array_filter($dados['escala'], fn ($element) => $element['tag'] == $dados['escala'][$i]['tag']))) > 1) {
                         echo json_encode([
+                            "error" => true,
                             "message" => "Equipamento escalado em múltiplos campos."
                         ]);
                         exit;
@@ -207,6 +211,7 @@ if ($api == 'listaEscalas') {
 
                         if (!$operador) {
                             echo json_encode([
+                                "error" => true,
                                 "message" => "Operador {$dados['escala'][$i]['matricula']} não encontrado.",
                             ]);
                             exit;
@@ -223,6 +228,7 @@ if ($api == 'listaEscalas') {
 
                         if (!$equipamento) {
                             echo json_encode([
+                                "error" => true,
                                 "message" => "Equipamento {$dados['escala'][$i]['tag']} não encontrado.",
                             ]);
                             exit;
@@ -236,6 +242,7 @@ if ($api == 'listaEscalas') {
 
                         if (!$operador[$categoria]) {
                             echo json_encode([
+                                "error" => true,
                                 "message" => "Operador {$operador['nome']} - {$operador['matricula']} não é autorizado a operar {$equipamento['tag']}",
                             ]);
                             exit;
@@ -250,6 +257,7 @@ if ($api == 'listaEscalas') {
 
                         if ($operador) {
                             echo json_encode([
+                                "error" => true,
                                 "message" => "Operador {$dados['escala'][$i]['matricula']} já está escalado.",
                             ]);
                             exit;
@@ -294,12 +302,13 @@ if ($api == 'listaEscalas') {
 
                     $db->commit();
                     echo json_encode([
+                        "error" => false,
                         "message" => "Dados atualizados com sucesso."
                     ]);
                 } catch (Exception $e) {
                     echo json_encode([
                         "message" => "Erro ao inserir os dados.",
-                        "error" => $e->getMessage(),
+                        "error" => true,
                     ]);
 
                     $db->rollBack();
