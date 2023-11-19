@@ -220,7 +220,7 @@ if ($api == 'listaEscalas') {
                         $sql->execute([$dados['escala'][$i]['matricula'], $parametro]);
                         $operador = $sql->fetch(PDO::FETCH_ASSOC);
 
-                        if (isset($operador)) {
+                        if ($operador) {
                             echo json_encode([
                                 "message" => "Operador {$dados['escala'][$i]['matricula']} já está escalado.",
                             ]);
