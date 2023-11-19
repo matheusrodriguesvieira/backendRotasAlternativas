@@ -190,14 +190,14 @@ if ($api == 'listaEscalas') {
                     }
                 }
 
-                $db = DB::connect();
 
 
 
                 try {
+                    $db = DB::connect();
 
                     // ---------------------------------------
-                    // VERIFICANDO SE O OPERADOR EXISTE E É AUTORIZADO A OPERAR UM EQUIPAMENTO
+                    // VERIFICANDO SE O OPERADOR EXISTE
                     // ---------------------------------------
 
                     for ($i = 0; $i < count($dados['escala']); $i++) {
@@ -212,6 +212,25 @@ if ($api == 'listaEscalas') {
                             exit;
                         }
 
+
+                        // ---------------------------------------
+                        // VERIFICANDO SE O OPERADOR já esta escalado
+                        // ---------------------------------------
+                        $sql = $db->prepare('SELECT * from operadorequipamento where operadorequipamento.matricula = ? and operadorequipamento.idlista = ?');
+                        $sql->execute([$dados['escala'][$i]['matricula'], $parametro]);
+                        $operador = $sql->fetch(PDO::FETCH_ASSOC);
+
+                        if (isset($operador)) {
+                            echo json_encode([
+                                "message" => "Operador {$dados['escala'][$i]['matricula']} já está escalado.",
+                            ]);
+                            exit;
+                        }
+
+
+                        // ---------------------------------------
+                        // VERIFICANDO SE O equipamento existe
+                        // ---------------------------------------
                         $sql = $db->prepare('SELECT * from equipamentos where equipamentos.tag = ?');
                         $sql->execute([$dados['escala'][$i]['tag']]);
                         $equipamento = $sql->fetch(PDO::FETCH_ASSOC);
@@ -223,6 +242,10 @@ if ($api == 'listaEscalas') {
                             ]);
                             exit;
                         }
+
+                        // ---------------------------------------
+                        // VERIFICANDO SE O OPERADOR é autorizado a operar
+                        // ---------------------------------------
 
                         $categoria = $equipamento['categoria'];
 
