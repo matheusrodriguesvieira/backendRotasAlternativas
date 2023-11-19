@@ -412,6 +412,9 @@ if ($api == 'listaEscalas') {
             }
 
 
+
+            // INICIA A TRANSAÇÃO
+            $db->beginTransaction();
             try {
 
                 // ---------------------------------------
@@ -452,8 +455,6 @@ if ($api == 'listaEscalas') {
                     }
                 }
 
-                // INICIA A TRANSAÇÃO
-                $db->beginTransaction();
 
                 // Inserir na tabela listaescalas
                 $comando = "INSERT INTO listaescalas (nomeLista, horarioCriacao, dataCriacao, turma) VALUES (?,?,?,?)";
