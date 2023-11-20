@@ -26,7 +26,7 @@ if ($api == 'operadores') {
             //     exit;
             // }
 
-            if (!isset($_GET['turma'])) {
+            if (empty($_GET['turma'])) {
                 $db = DB::connect();
                 $sql = $db->prepare("SELECT * FROM operadores");
                 $sql->execute();
