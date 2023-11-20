@@ -253,7 +253,7 @@ if ($api == 'listaEscalas') {
                         // VERIFICANDO SE O OPERADOR já esta escalado
                         // ---------------------------------------
                         $sql = $db->prepare('SELECT * from operadorequipamento where operadorequipamento.matricula = ? and operadorequipamento.idlista = ? and operadorequipamento.tag != ? and operadorequipamento.matricula not between 1 and 5');
-                        $sql->execute([$dados['escala'][$i]['matricula'], $dados['escala'][$i]['tag'], $parametro]);
+                        $sql->execute([$dados['escala'][$i]['matricula'], $parametro, $dados['escala'][$i]['tag']]);
                         $operador = $sql->fetch(PDO::FETCH_ASSOC);
 
                         if ($operador) {
