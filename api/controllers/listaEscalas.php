@@ -351,18 +351,26 @@ if ($api == 'listaEscalas') {
             $json = file_get_contents("php://input");
             $dados = json_decode($json, true);
 
+            if (!array_key_exists('turma', $dados)) {
+                echo json_encode([
+                    "message" => "erro ao criar lista de escala. Sem o parâmetro 'turma'"
+                ]);
+                exit;
+            }
+
+            if ($dados['turma'] == "") {
+                echo json_encode([
+                    "message" => "erro ao criar lista de escala. Parâmetro 'turma' está vazio"
+                ]);
+                exit;
+            }
+
             date_default_timezone_set("America/Sao_Paulo");
             $dataCriacao = date("Y-m-d");
             $horarioCriacao = date("H:i:s");
 
             $nomeLista = "Escala da Turma " . $dados['turma'] . " - " . $dataCriacao;
 
-            if (!array_key_exists('turma', $dados)) {
-                echo json_encode([
-                    "message" => "erro ao criar lista de escala"
-                ]);
-                exit;
-            }
             if (!array_key_exists('operadoresForaEscala', $dados)) {
                 echo json_encode([
                     "message" => "erro ao criar lista de escala"
