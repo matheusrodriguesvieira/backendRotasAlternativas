@@ -307,7 +307,7 @@ if ($api == 'listaEscalas') {
                     ]);
                 } catch (Exception $e) {
                     echo json_encode([
-                        "message" => "Erro ao inserir os dados.",
+                        "message" => "Erro ao inserir os dados. " . $e->getMessage(),
                         "error" => true,
                     ]);
 
