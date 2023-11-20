@@ -27,30 +27,41 @@ if ($api == 'operadores') {
             // }
 
             if (!$_GET['turma']) {
-                $response = array(
-                    "message" => 'Parâmetro \'turma\' não encontrado.'
-                );
-                echo json_encode($response);
+                $db = DB::connect();
+                $sql = $db->prepare("SELECT * FROM operadores");
+                $sql->execute();
+                $obj = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+                if (!$obj) {
+                    $response = array(
+                        "message" => "Nenhum operador encontrado!"
+                    );
+                    echo json_encode($response);
+                    exit;
+                }
+
+                echo json_encode($obj);
+                exit;
+            } else {
+
+                $turma = $_GET['turma'];
+
+                $db = DB::connect();
+                $sql = $db->prepare("SELECT * FROM operadores WHERE operadores.turma = ?");
+                $sql->execute([$turma]);
+                $obj = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+                if (!$obj) {
+                    $response = array(
+                        "message" => "Nenhum operador encontrado!"
+                    );
+                    echo json_encode($response);
+                    exit;
+                }
+
+                echo json_encode($obj);
                 exit;
             }
-
-            $turma = $_GET['turma'];
-
-            $db = DB::connect();
-            $sql = $db->prepare("SELECT * FROM operadores WHERE operadores.turma = ?");
-            $sql->execute([$turma]);
-            $obj = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-            if (!$obj) {
-                $response = array(
-                    "message" => "Nenhum operador encontrado!"
-                );
-                echo json_encode($response);
-                exit;
-            }
-
-            echo json_encode($obj);
-            exit;
         }
 
         if ($acao == 'show' && $parametro != '') {
