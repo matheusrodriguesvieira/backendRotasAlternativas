@@ -199,6 +199,7 @@ if ($api == 'listaEscalas') {
 
                 try {
                     $db = DB::connect();
+                    $db->beginTransaction();
 
                     // ---------------------------------------
                     // VERIFICANDO SE O OPERADOR EXISTE
@@ -265,7 +266,6 @@ if ($api == 'listaEscalas') {
                     }
 
 
-                    $db->beginTransaction();
                     foreach ($dados['escala'] as $valor) {
 
                         $sql = $db->prepare("SELECT * FROM operadorequipamento WHERE operadorequipamento.idlista = ? and operadorequipamento.tag = ?");
