@@ -80,7 +80,7 @@ class Usuarios
         $secretJWT = $GLOBALS['secretJWT'];
 
         if ($rows > 0) :
-            $idDB    = $obj->id;
+            $idDB    = $obj->matricula;
             $tokenDB = $obj->token;
 
             $decodedJWT = JWT::decode($tokenDB, $secretJWT);
