@@ -1,5 +1,7 @@
 <?php
 if ($api == 'operadores') {
+
+
     if ($metodo == 'GET') {
         if ($acao == 'index' && $parametro == '') {
 
@@ -145,6 +147,12 @@ if ($api == 'operadores') {
 
                 exit;
             }
+        }
+    }
+
+    if ($metodo == "POST") {
+        if ($acao == "login" && $parametro == "") {
+            Usuarios::login($api);
         }
     }
 }

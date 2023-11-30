@@ -17,6 +17,8 @@ if (isset($path[0])) {
     exit;
 }
 
+$GLOBALS['secretJWT'] = getenv('SECRET_JWT');
+
 
 
 if (isset($path[1])) {
@@ -45,6 +47,8 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 
 
 require_once(realpath(dirname(__FILE__) . '/database/DB.php'));
+require_once(realpath(dirname(__FILE__) . '/jwt/JWT.php'));
+require_once(realpath(dirname(__FILE__) . '/auth/auth.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/listaEscalas.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/operadoresController.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/equipamentosCotroller.php'));
