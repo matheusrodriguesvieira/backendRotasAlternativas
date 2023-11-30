@@ -48,3 +48,4 @@ require_once(realpath(dirname(__FILE__) . '/database/DB.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/listaEscalas.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/operadoresController.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/equipamentosCotroller.php'));
+require_once(realpath(dirname(__FILE__) . '/controllers/supervisoresController.php'));
