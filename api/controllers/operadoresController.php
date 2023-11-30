@@ -1,9 +1,7 @@
 <?php
 if ($api == 'operadores') {
-
-
-    if (Usuarios::verificar($api)) {
-        if ($metodo == 'GET') {
+    if ($metodo == 'GET') {
+        if (Usuarios::verificar($api)) {
             if ($acao == 'index' && $parametro == '') {
 
                 // ---------------------------------------
@@ -90,8 +88,11 @@ if ($api == 'operadores') {
                 exit;
             }
         }
+    }
 
-        if ($metodo == 'PUT') {
+    if ($metodo == 'PUT') {
+
+        if (Usuarios::verificar($api)) {
             if ($acao == 'update') {
                 if ($parametro != "") {
 
@@ -151,6 +152,8 @@ if ($api == 'operadores') {
             }
         }
     }
+
+
 
 
     if ($metodo == "POST") {
