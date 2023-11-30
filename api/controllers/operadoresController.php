@@ -28,7 +28,7 @@ if ($api == 'operadores') {
 
             if (empty($_GET['turma'])) {
                 $db = DB::connect();
-                $sql = $db->prepare("SELECT * FROM operadores");
+                $sql = $db->prepare("SELECT matricula, nome, turma, disponivel, d11, ehgp, dragline, cat777, matriculasupervisor from operadores");
                 $sql->execute();
                 $obj = $sql->fetchAll(PDO::FETCH_ASSOC);
 
@@ -47,7 +47,7 @@ if ($api == 'operadores') {
                 $turma = $_GET['turma'];
 
                 $db = DB::connect();
-                $sql = $db->prepare("SELECT * FROM operadores WHERE operadores.turma = ?");
+                $sql = $db->prepare("SELECT matricula, nome, turma, disponivel, d11, ehgp, dragline, cat777, matriculasupervisor from operadores WHERE operadores.turma = ?");
                 $sql->execute([$turma]);
                 $obj = $sql->fetchAll(PDO::FETCH_ASSOC);
 
