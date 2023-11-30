@@ -1,5 +1,6 @@
 <?php
 if ($api == 'listaEscalas') {
+
     if ($metodo == 'GET') {
         if ($acao == 'index' && $parametro == '') {
 

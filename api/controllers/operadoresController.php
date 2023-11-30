@@ -1,80 +1,55 @@
 <?php
 if ($api == 'operadores') {
     if ($metodo == 'GET') {
-        if (Usuarios::verificar($api)) {
-            if ($acao == 'index' && $parametro == '') {
+        if ($acao == 'index' && $parametro == '') {
 
-                // ---------------------------------------
-                // PEGA TODOS OS OPERADORES
-                // ---------------------------------------
+            // ---------------------------------------
+            // PEGA TODOS OS OPERADORES
+            // ---------------------------------------
 
-                // $json = file_get_contents("php://input");
-                // $dados = json_decode($json, true);
+            // $json = file_get_contents("php://input");
+            // $dados = json_decode($json, true);
 
-                // if (!$dados) {
-                //     $response = array(
-                //         "message" => 'Parâmetro \'turma\' não encontrado.'
-                //     );
-                //     echo json_encode($response);
-                //     exit;
-                // }
+            // if (!$dados) {
+            //     $response = array(
+            //         "message" => 'Parâmetro \'turma\' não encontrado.'
+            //     );
+            //     echo json_encode($response);
+            //     exit;
+            // }
 
-                // if (!array_key_exists('turma', $dados)) {
-                //     $response = array(
-                //         "message" => 'Parâmetro \'turma\' não encontrado.'
-                //     );
-                //     echo json_encode($response);
-                //     exit;
-                // }
+            // if (!array_key_exists('turma', $dados)) {
+            //     $response = array(
+            //         "message" => 'Parâmetro \'turma\' não encontrado.'
+            //     );
+            //     echo json_encode($response);
+            //     exit;
+            // }
 
-                if (empty($_GET['turma'])) {
-                    $db = DB::connect();
-                    $sql = $db->prepare("SELECT matricula, nome, turma, disponivel, d11, ehgp, dragline, cat777, matriculasupervisor from operadores");
-                    $sql->execute();
-                    $obj = $sql->fetchAll(PDO::FETCH_ASSOC);
+            if (empty($_GET['turma'])) {
+                $db = DB::connect();
+                $sql = $db->prepare("SELECT matricula, nome, turma, disponivel, d11, ehgp, dragline, cat777, matriculasupervisor from operadores");
+                $sql->execute();
+                $obj = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-                    if (!$obj) {
-                        $response = array(
-                            "message" => "Nenhum operador encontrado!"
-                        );
-                        echo json_encode($response);
-                        exit;
-                    }
-
-                    echo json_encode($obj);
-                    exit;
-                } else {
-
-                    $turma = $_GET['turma'];
-
-                    $db = DB::connect();
-                    $sql = $db->prepare("SELECT matricula, nome, turma, disponivel, d11, ehgp, dragline, cat777, matriculasupervisor from operadores WHERE operadores.turma = ?");
-                    $sql->execute([$turma]);
-                    $obj = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-                    if (!$obj) {
-                        $response = array(
-                            "message" => "Nenhum operador encontrado!"
-                        );
-                        echo json_encode($response);
-                        exit;
-                    }
-
-                    echo json_encode($obj);
+                if (!$obj) {
+                    $response = array(
+                        "message" => "Nenhum operador encontrado!"
+                    );
+                    echo json_encode($response);
                     exit;
                 }
-            }
 
-            if ($acao == 'show' && $parametro != '') {
-                // ---------------------------------------
-                // PEGA UM OPERADOR ESPECÍFICO
-                // ---------------------------------------
+                echo json_encode($obj);
+                exit;
+            } else {
 
+                $turma = $_GET['turma'];
 
                 $db = DB::connect();
-                $sql = $db->prepare("SELECT matricula, nome, turma, disponivel, d11, ehgp, dragline, cat777, matriculasupervisor from operadores WHERE operadores.matricula = {$parametro}");
-                $sql->execute();
-                $obj = $sql->fetchObject();
+                $sql = $db->prepare("SELECT matricula, nome, turma, disponivel, d11, ehgp, dragline, cat777, matriculasupervisor from operadores WHERE operadores.turma = ?");
+                $sql->execute([$turma]);
+                $obj = $sql->fetchAll(PDO::FETCH_ASSOC);
 
                 if (!$obj) {
                     $response = array(
@@ -88,68 +63,93 @@ if ($api == 'operadores') {
                 exit;
             }
         }
+
+        if ($acao == 'show' && $parametro != '') {
+            // ---------------------------------------
+            // PEGA UM OPERADOR ESPECÍFICO
+            // ---------------------------------------
+
+
+            $db = DB::connect();
+            $sql = $db->prepare("SELECT matricula, nome, turma, disponivel, d11, ehgp, dragline, cat777, matriculasupervisor from operadores WHERE operadores.matricula = {$parametro}");
+            $sql->execute();
+            $obj = $sql->fetchObject();
+
+            if (!$obj) {
+                $response = array(
+                    "message" => "Nenhum operador encontrado!"
+                );
+                echo json_encode($response);
+                exit;
+            }
+
+            echo json_encode($obj);
+            exit;
+        }
+        if (Usuarios::verificar('operadores')) {
+        }
     }
 
     if ($metodo == 'PUT') {
 
-        if (Usuarios::verificar($api)) {
-            if ($acao == 'update') {
-                if ($parametro != "") {
+        if ($acao == 'update') {
+            if ($parametro != "") {
 
-                    // 1- VERIFICAR SE EXISTE O DADO PARA MODIFICAR;
-                    // 2- MODIFICAR 
-                    // 3 - RETORNAR A MENSAGEM DE ERRO OU SUCESSOR
+                // 1- VERIFICAR SE EXISTE O DADO PARA MODIFICAR;
+                // 2- MODIFICAR 
+                // 3 - RETORNAR A MENSAGEM DE ERRO OU SUCESSOR
 
-                    // RECEBE UM JSON COM O SEGUINTE FORMATO:
-                    // {
-                    //     "disponivel": BOOLEANO 
-                    // }
+                // RECEBE UM JSON COM O SEGUINTE FORMATO:
+                // {
+                //     "disponivel": BOOLEANO 
+                // }
 
-                    $db = DB::connect();
-                    $sql = $db->prepare("SELECT * FROM operadores WHERE operadores.matricula = ?");
-                    $sql->execute([$parametro]);
-                    $obj = $sql->fetchObject();
+                $db = DB::connect();
+                $sql = $db->prepare("SELECT * FROM operadores WHERE operadores.matricula = ?");
+                $sql->execute([$parametro]);
+                $obj = $sql->fetchObject();
 
-                    if (!$obj) {
-                        echo json_encode(["message" => "Não foi possível encontrar o operador"]);
-                        exit;
-                    }
-
-
-                    $json = file_get_contents("php://input");
-                    $dados = json_decode($json, true);
-
-                    if (!array_key_exists('disponivel', $dados)) {
-                        echo json_encode([
-                            "message" => "Parâmetros ausentes"
-                        ]);
-                        exit;
-                    }
-
-                    if ($dados['disponivel'] < 0 || $dados['disponivel'] > 1 || $dados['disponivel'] == null) {
-                        echo json_encode([
-                            "message" => '"disponivel" precisa ser do tipo booleano'
-                        ]);
-                        exit;
-                    }
-
-
-                    // echo $sql;
-                    $exec = $db->prepare("UPDATE operadores set disponivel = ? where operadores.matricula = ?");
-
-                    try {
-                        $response = $exec->execute([$dados['disponivel'], $parametro]);
-                        echo json_encode(["message" => "Dados atualizados com sucesso!"]);
-                    } catch (Exception $e) {
-                        echo json_encode([
-                            "message" => "Erro ao atualizar os dados!",
-                            "error" => $e->getMessage(),
-                        ]);
-                    }
-
+                if (!$obj) {
+                    echo json_encode(["message" => "Não foi possível encontrar o operador"]);
                     exit;
                 }
+
+
+                $json = file_get_contents("php://input");
+                $dados = json_decode($json, true);
+
+                if (!array_key_exists('disponivel', $dados)) {
+                    echo json_encode([
+                        "message" => "Parâmetros ausentes"
+                    ]);
+                    exit;
+                }
+
+                if ($dados['disponivel'] < 0 || $dados['disponivel'] > 1 || $dados['disponivel'] == null) {
+                    echo json_encode([
+                        "message" => '"disponivel" precisa ser do tipo booleano'
+                    ]);
+                    exit;
+                }
+
+
+                // echo $sql;
+                $exec = $db->prepare("UPDATE operadores set disponivel = ? where operadores.matricula = ?");
+
+                try {
+                    $response = $exec->execute([$dados['disponivel'], $parametro]);
+                    echo json_encode(["message" => "Dados atualizados com sucesso!"]);
+                } catch (Exception $e) {
+                    echo json_encode([
+                        "message" => "Erro ao atualizar os dados!",
+                        "error" => $e->getMessage(),
+                    ]);
+                }
+
+                exit;
             }
+        }
+        if (Usuarios::verificar('operadores')) {
         }
     }
 

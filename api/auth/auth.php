@@ -39,7 +39,7 @@ class Usuarios
 
         if ($validUsername and $validPassword) {
             //$nextWeek = time() + (7 * 24 * 60 * 60);
-            $expire_in = time() + 60000;
+            $expire_in = time() + 3600;
             $token     = JWT::encode([
                 'id'         => $idDB,
                 'name'       => $nameDB,
@@ -53,7 +53,7 @@ class Usuarios
             if (!$validPassword) {
                 echo json_encode([
                     'error' => true,
-                    'message' => 'invalid password'
+                    'message' => 'Invalid user name or password.'
                 ]);
             }
         }
