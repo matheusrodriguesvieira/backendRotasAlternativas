@@ -71,7 +71,7 @@ if ($api == 'operadores') {
 
 
             $db = DB::connect();
-            $sql = $db->prepare("SELECT * FROM operadores WHERE operadores.matricula = {$parametro}");
+            $sql = $db->prepare("SELECT matricula, nome, turma, disponivel, d11, ehgp, dragline, cat777, matriculasupervisor from operadores WHERE operadores.matricula = {$parametro}");
             $sql->execute();
             $obj = $sql->fetchObject();
 
