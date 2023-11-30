@@ -4,64 +4,71 @@ class Usuarios
 {
     public static function login($api)
     {
-        if ($_POST) {
-            if (!$_POST['login'] or !$_POST['senha']) {
-                echo json_encode(['ERRO' => 'Falta informacoes!']);
-                exit;
-            } else {
-                $login = addslashes(htmlspecialchars($_POST['login'])) ?? '';
-                $senha = addslashes(htmlspecialchars($_POST['senha'])) ?? '';
-                $secretJWT = $GLOBALS['secretJWT'];
+        $json = file_get_contents("php://input");
+        $dados = json_decode($json, true);
 
-                $db = DB::connect();
-                $rs = $db->prepare("SELECT * FROM $api WHERE matricula = ?");
-                $exec = $rs->execute([$login]);
-                $obj = $rs->fetchObject();
-                $rows = $rs->rowCount();
-
-                if ($rows > 0) {
-                    $idDB          = $obj->matricula;
-                    $nameDB        = $obj->nome;
-                    $passDB        = $obj->senha;
-                    $validUsername = true;
-                    // $validPassword = password_verify($senha, $passDB) ? true : false;
-                    $validPassword = $passDB == $senha ? true : false;
-                } else {
-                    $validUsername = false;
-                    $validPassword = false;
-                }
-
-                if ($validUsername and $validPassword) {
-                    //$nextWeek = time() + (7 * 24 * 60 * 60);
-                    $expire_in = time() + 60000;
-                    $token     = JWT::encode([
-                        'id'         => $idDB,
-                        'name'       => $nameDB,
-                        'expires_in' => $expire_in,
-                    ], $GLOBALS['secretJWT']);
-
-                    $sql = $db->prepare("UPDATE $api SET token = ? WHERE matricula = ?");
-                    $sql->execute([$token, $idDB]);
-                    echo json_encode(['token' => $token, 'data' => JWT::decode($token, $secretJWT)]);
-                } else {
-                    if (!$validPassword) {
-                        echo json_encode(['ERROR', 'invalid password']);
-                    }
-                }
-            }
-        } else {
-            echo json_encode(['ERRO' => 'Falta informacoes!']);
+        if (!array_key_exists("login", $dados) || !array_key_exists("senha", $dados)) {
+            echo json_encode([
+                'error' => true,
+                "message" => "faltam informações de login ou senha."
+            ]);
             exit;
+        }
+
+        $login = addslashes(htmlspecialchars($dados['login'])) ?? '';
+        $senha = addslashes(htmlspecialchars($dados['senha'])) ?? '';
+        $secretJWT = $GLOBALS['secretJWT'];
+
+        $db = DB::connect();
+        $rs = $db->prepare("SELECT * FROM $api WHERE matricula = ?");
+        $exec = $rs->execute([$login]);
+        $obj = $rs->fetchObject();
+        $rows = $rs->rowCount();
+
+        if ($rows > 0) {
+            $idDB          = $obj->matricula;
+            $nameDB        = $obj->nome;
+            $passDB        = $obj->senha;
+            $validUsername = true;
+            // $validPassword = password_verify($senha, $passDB) ? true : false;
+            $validPassword = $passDB == $senha ? true : false;
+        } else {
+            $validUsername = false;
+            $validPassword = false;
+        }
+
+        if ($validUsername and $validPassword) {
+            //$nextWeek = time() + (7 * 24 * 60 * 60);
+            $expire_in = time() + 60000;
+            $token     = JWT::encode([
+                'id'         => $idDB,
+                'name'       => $nameDB,
+                'expires_in' => $expire_in,
+            ], $GLOBALS['secretJWT']);
+
+            $sql = $db->prepare("UPDATE $api SET token = ? WHERE matricula = ?");
+            $sql->execute([$token, $idDB]);
+            echo json_encode(['token' => $token, 'data' => JWT::decode($token, $secretJWT)]);
+        } else {
+            if (!$validPassword) {
+                echo json_encode([
+                    'error' => true,
+                    'message' => 'invalid password'
+                ]);
+            }
         }
     }
 
-    public function verificar($api)
+    public static function verificar($api)
     {
         $headers = apache_request_headers();
         if (isset($headers['authorization'])) {
             $token = $headers['authorization'];
         } else {
-            echo json_encode(['ERRO' => 'Você não está logado, ou seu token é inválido.']);
+            echo json_encode([
+                'error' => true,
+                'message' => 'Você não está logado, ou seu token é inválido.'
+            ]);
             exit;
         }
 
