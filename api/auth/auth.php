@@ -14,8 +14,8 @@ class Usuarios
                 $secretJWT = $GLOBALS['secretJWT'];
 
                 $db = DB::connect();
-                $rs = $db->prepare("SELECT * FROM ? WHERE matricula = ?");
-                $exec = $rs->execute([$api, $login]);
+                $rs = $db->prepare("SELECT * FROM $api WHERE matricula = ?");
+                $exec = $rs->execute([$login]);
                 $obj = $rs->fetchObject();
                 $rows = $rs->rowCount();
 
@@ -40,8 +40,8 @@ class Usuarios
                         'expires_in' => $expire_in,
                     ], $GLOBALS['secretJWT']);
 
-                    $sql = $db->prepare("UPDATE ? SET token = ? WHERE matricula = ?");
-                    $sql->execute([$api, $token, $idDB]);
+                    $sql = $db->prepare("UPDATE $api SET token = ? WHERE matricula = ?");
+                    $sql->execute([$token, $idDB]);
                     echo json_encode(['token' => $token, 'data' => JWT::decode($token, $secretJWT)]);
                 } else {
                     if (!$validPassword) {
@@ -66,8 +66,8 @@ class Usuarios
         }
 
         $db   = DB::connect();
-        $rs   = $db->prepare("SELECT * FROM ? WHERE token = ?");
-        $exec = $rs->execute([$api, $token]);
+        $rs   = $db->prepare("SELECT * FROM $api WHERE token = ?");
+        $exec = $rs->execute([$token]);
         $obj  = $rs->fetchObject();
         $rows = $rs->rowCount();
         $secretJWT = $GLOBALS['secretJWT'];
@@ -80,8 +80,8 @@ class Usuarios
             if ($decodedJWT->expires_in > time()) {
                 return true;
             } else {
-                $sql = $db->query("UPDATE ? SET token = '' WHERE matricula = ?");
-                $sql->execute([$api, $token, $idDB]);
+                $sql = $db->query("UPDATE $api SET token = '' WHERE matricula = ?");
+                $sql->execute([$token, $idDB]);
                 return false;
             }
         else :
