@@ -48,7 +48,11 @@ class Usuarios
 
             $sql = $db->prepare("UPDATE $api SET token = ? WHERE matricula = ?");
             $sql->execute([$token, $idDB]);
-            echo json_encode(['token' => $token, 'data' => JWT::decode($token, $secretJWT)]);
+            echo json_encode([
+                'error' => false,
+                'token' => $token,
+                'data' => JWT::decode($token, $secretJWT)
+            ]);
         } else {
             if (!$validPassword) {
                 echo json_encode([
