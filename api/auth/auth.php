@@ -88,7 +88,7 @@ class Usuarios
                 return true;
             } else {
                 $sql = $db->query("UPDATE $api SET token = '' WHERE matricula = ?");
-                $sql->execute([$token, $idDB]);
+                $sql->execute([$idDB]);
                 return false;
             }
         else :
