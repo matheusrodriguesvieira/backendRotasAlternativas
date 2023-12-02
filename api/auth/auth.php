@@ -65,7 +65,7 @@ class Usuarios
 
     public static function verificar($api)
     {
-        $headers = apache_request_headers();
+        $headers = getallheaders();
         if (isset($headers['authorization'])) {
             $token = $headers['authorization'];
         } else {
