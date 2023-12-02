@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, DELETE, POST, PUT");
-header("Access-Control-Allow-Headers: X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
+header("Access-Control-Allow-Headers:Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
 
 // Roteamento manual
 // $uri = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
