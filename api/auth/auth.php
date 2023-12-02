@@ -87,7 +87,7 @@ class Usuarios
             if ($decodedJWT->expires_in > time()) {
                 return true;
             } else {
-                $sql = $db->query("UPDATE $api SET token = '' WHERE matricula = ?");
+                $sql = $db->prepare("UPDATE $api SET token = '' WHERE matricula = ?");
                 $sql->execute([$idDB]);
                 return false;
             }
