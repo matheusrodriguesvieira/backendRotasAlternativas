@@ -51,5 +51,5 @@ require_once(realpath(dirname(__FILE__) . '/jwt/JWT.php'));
 require_once(realpath(dirname(__FILE__) . '/auth/auth.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/listaEscalasController/listaEscalasController.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/operadoresController/operadoresController.php'));
-require_once(realpath(dirname(__FILE__) . '/controllers/equipamentosCotroller/equipamentosCotroller.php'));
+require_once(realpath(dirname(__FILE__) . '/controllers/equipamentosController/equipamentosController.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/supervisoresController/supervisoresController.php'));
