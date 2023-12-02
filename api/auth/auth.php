@@ -65,11 +65,7 @@ class Usuarios
         if (isset($headers['authorization'])) {
             $token = $headers['authorization'];
         } else {
-            echo json_encode([
-                'error' => true,
-                'message' => 'Você não está logado, ou seu token é inválido.'
-            ]);
-            exit;
+            return false;
         }
 
         $db   = DB::connect();
