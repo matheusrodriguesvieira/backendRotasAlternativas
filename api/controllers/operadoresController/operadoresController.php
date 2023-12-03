@@ -15,7 +15,7 @@ if ($api == 'operadores') {
 
     if ($metodo == 'PUT') {
         if (Usuarios::verificar('supervisores')) {
-            require_once(realpath(dirname(__FILE__) . '/GET.php'));
+            require_once(realpath(dirname(__FILE__) . '/PUT.php'));
         } else {
             echo json_encode([
                 'error' => true,
