@@ -49,6 +49,7 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 require_once(realpath(dirname(__FILE__) . '/database/DB.php'));
 require_once(realpath(dirname(__FILE__) . '/jwt/JWT.php'));
 require_once(realpath(dirname(__FILE__) . '/auth/auth.php'));
+require_once(realpath(dirname(__FILE__) . '/auth/validateToken.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/listaEscalasController/listaEscalasController.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/operadoresController/operadoresController.php'));
 require_once(realpath(dirname(__FILE__) . '/controllers/equipamentosController/equipamentosController.php'));
