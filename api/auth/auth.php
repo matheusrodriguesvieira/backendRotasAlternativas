@@ -63,6 +63,7 @@ class Usuarios
         }
     }
 
+    // VERIFICA SE O TOKEN É VÁLIDO, CASO CONTRÁRIO, APAGA O TOKEN EXISTENTE
     public static function verificar($api)
     {
         $headers = getallheaders();
@@ -79,7 +80,7 @@ class Usuarios
         $rows = $rs->rowCount();
         $secretJWT = $GLOBALS['secretJWT'];
 
-        if ($rows > 0) :
+        if ($rows > 0) {
             $idDB    = $obj->matricula;
             $tokenDB = $obj->token;
 
@@ -91,8 +92,8 @@ class Usuarios
                 $sql->execute([$idDB]);
                 return false;
             }
-        else :
+        } else {
             return false;
-        endif;
+        }
     }
 }
